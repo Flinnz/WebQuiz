@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "948598117af969ba61eb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "029b5dcd43db2d697154"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -5799,7 +5799,7 @@ exports = module.exports = __webpack_require__(146)(undefined);
 
 
 // module
-exports.push([module.i, "#app{\r\n    position: absolute; top: 0; right: 0; bottom: 0; left: 0;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n#input{\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n}\r\n#question{   \r\n    font-family: \"Comic Sans MS\", sans-serif;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    display: flex;\r\n    align-items: center; \r\n    justify-content: center;\r\n    flex-grow: 0.5;\r\n    width: 70%;\r\n    flex-basis: 20%;\r\n    border: 1px solid orange;\r\n    background-color: lightskyblue;\r\n}\r\n.button{\r\n    display: flex;\r\n    align-items: center;\r\n    flex-basis: 8%;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    align-self: flex;\r\n    border: 1px solid lawngreen;\r\n    border-radius: 20%;\r\n    background: rgba(136, 212, 231, 0.5);\r\n}\r\n.button:hover{\r\n    background: rgba(78, 128, 141, 0.8);\r\n    cursor: crosshair;\r\n}\r\n", ""]);
+exports.push([module.i, "#app{\r\n    position: absolute; top: 0; right: 0; bottom: 0; left: 0;\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n#input{\r\n    margin-top: 10px;\r\n    margin-bottom: 10px;\r\n    border: 1px solid gray;\r\n    padding: 5px 5px 5px 5px;\r\n    border-radius: 30px;\r\n}\r\n#input:hover{\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.5);\r\n}\r\n.input{\r\n    border-width: 0px;\r\n}\r\n#question{   \r\n    font-family: \"Comic Sans MS\", sans-serif;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    display: flex;\r\n    align-items: center; \r\n    justify-content: center;\r\n    flex-grow: 0.5;\r\n    width: 70%;\r\n    flex-basis: 20%;\r\n    border: 1px solid orange;\r\n    background-color: lightskyblue;\r\n}\r\n.button{\r\n    display: flex;\r\n    align-items: center;\r\n    padding-top: 15px;\r\n    padding-bottom: 15px;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    border: 1px solid lawngreen;\r\n    border-radius: 30px;\r\n    background: rgba(136, 212, 231, 0.5);\r\n}\r\n.button:hover{\r\n    box-shadow: 0 0 10px rgba(0,0,0,0.5);\r\n    background: rgba(78, 128, 141, 0.8);\r\n    cursor: crosshair;\r\n}\r\n", ""]);
 
 // exports
 

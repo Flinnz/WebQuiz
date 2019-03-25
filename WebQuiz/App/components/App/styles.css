@@ -8,6 +8,15 @@
 #input{
     margin-top: 10px;
     margin-bottom: 10px;
+    border: 1px solid gray;
+    padding: 5px 5px 5px 5px;
+    border-radius: 30px;
+}
+#input:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.input{
+    border-width: 0px;
 }
 #question{   
     font-family: "Comic Sans MS", sans-serif;
@@ -25,15 +34,16 @@
 .button{
     display: flex;
     align-items: center;
-    flex-basis: 8%;
+    padding-top: 15px;
+    padding-bottom: 15px;
     padding-left: 10px;
     padding-right: 10px;
-    align-self: flex;
     border: 1px solid lawngreen;
-    border-radius: 20%;
+    border-radius: 30px;
     background: rgba(136, 212, 231, 0.5);
 }
 .button:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     background: rgba(78, 128, 141, 0.8);
     cursor: crosshair;
 }

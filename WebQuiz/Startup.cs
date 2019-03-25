@@ -60,7 +60,7 @@ namespace WebQuiz
                 app.UseHsts();
             }
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSpa(spa =>
             {
