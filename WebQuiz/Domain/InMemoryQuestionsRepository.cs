@@ -11,7 +11,8 @@ namespace WebQuiz.Domain
         {
             questions = new Dictionary<Guid, QuestionEntity>();
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько будет 2*2?", "4"));
-            this.Insert(new QuestionEntity(Guid.NewGuid(), "Как зовут Вячеслава Жиляева?", "Миша"));
+            this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько хромосом у человека?", "46"));
+            this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько хромосом у тебя?", "47"));
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Итс окей ту би гей?", "Да"));
         }
         public QuestionEntity FindById(Guid id)
