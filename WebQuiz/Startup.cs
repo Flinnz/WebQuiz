@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using React.AspNet;
+using Swashbuckle.AspNetCore.Swagger;
 using WebQuiz.Domain;
 
 namespace WebQuiz
@@ -40,6 +41,12 @@ namespace WebQuiz
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
+            
+            //Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "WebQuiz API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +68,11 @@ namespace WebQuiz
             }
             app.UseStaticFiles();
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebQuiz v1");
+            });
             app.UseMvc();
             app.UseSpa(spa =>
             {
