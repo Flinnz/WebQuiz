@@ -15,6 +15,9 @@ namespace WebQuiz.Controllers
             this.questionsRepository = questionsRepository;
         }
 
+        /// <summary>
+        /// Gets random question from database.
+        /// </summary>
         [HttpGet("question")]
         public IActionResult GetNewRandomQuestion()
         {
@@ -25,6 +28,9 @@ namespace WebQuiz.Controllers
             });
         }
 
+        /// <summary>
+        /// Submits answer.
+        /// </summary>
         [HttpPost("answer")]
         public IActionResult AnswerQuestion([FromBody]RecievedAnswerDto answerDto)
         {
