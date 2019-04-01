@@ -11,7 +11,7 @@ namespace WebQuiz.Domain
         public InMemoryQuestionsRepository()
         {
             questions = new Dictionary<Guid, QuestionEntity>();
-            var parser = new SheetParser();
+            var parser = new SheetParser("1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38");
             var values = parser.GetValues("B2:C");
             foreach (var value in values)
             {
@@ -25,12 +25,7 @@ namespace WebQuiz.Domain
         }
         public QuestionEntity FindById(Guid id)
         {
-            if(questions.ContainsKey(id))
-            {
-                return questions[id];
-            }
-
-            return null;
+            return questions.ContainsKey(id) ? questions[id] : null;
         }
 
         public QuestionEntity GetRandomQuestion()

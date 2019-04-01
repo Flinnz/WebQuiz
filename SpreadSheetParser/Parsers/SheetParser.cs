@@ -14,17 +14,17 @@ namespace SpreadSheetParser.Parsers
 {
     public class SheetParser
     {
-        private static string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
-        private static string ApplicationName = "WebQuiz";
+        private static readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
+        private static readonly string ApplicationName = "WebQuiz";
 
         private readonly UserCredential credential;
-        private readonly string credentialPath = $"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/token";
+        private static readonly string CredentialPath = $"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/token";
         private readonly SheetsService service;
-        private static readonly string sheetId = "1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38";
+        private readonly string sheetId;
 
-        public SheetParser()
+        public SheetParser(string sheetId)
         {
-            
+            this.sheetId = sheetId;
             using (var stream = new FileStream($"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/credentials.json", FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
@@ -32,7 +32,7 @@ namespace SpreadSheetParser.Parsers
                     Scopes,
                     "user",
                     CancellationToken.None,
-                    new FileDataStore(credentialPath, true)).Result;
+                    new FileDataStore(CredentialPath, true)).Result;
             }
 
             service = new SheetsService(new BaseClientService.Initializer()
