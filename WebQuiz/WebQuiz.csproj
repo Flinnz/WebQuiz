@@ -6,14 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="App\components\Новая папка\**" />
+    <Content Remove="App\components\Новая папка\**" />
+    <EmbeddedResource Remove="App\components\Новая папка\**" />
+    <None Remove="App\components\Новая папка\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.38.0.1537" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="React.AspNet" Version="4.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="App\components\Новая папка\" />
   </ItemGroup>
 
   <ItemGroup>
