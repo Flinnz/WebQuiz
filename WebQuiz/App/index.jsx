@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import 'whatwg-fetch';
 import App from './components/App/App.jsx';
@@ -6,7 +7,9 @@ import { AppContainer } from 'react-hot-loader';
 
 ReactDOM.render(
     <AppContainer>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </AppContainer>,
     document.getElementById('content')
 );
