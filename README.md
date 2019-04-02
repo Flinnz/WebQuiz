@@ -8,3 +8,6 @@ small webquiz
 ## Content
 - **App** folder contains ReactJS application.
 - other things is .Net Core WebServer
+
+## Swagger
+- To open **Swagger** follow https://localhost:5000/swagger/
