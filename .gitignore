@@ -262,6 +262,4 @@ __pycache__/
 *.pyc
 /WebQuiz/wwwroot/assets/bundle.js.map
 /WebQuiz/wwwroot/assets/bundle.js
-/WebQuiz/wwwroot/assets/fdfc68b6ac05539ac75997aa789ba841.jpg
-/WebQuiz/wwwroot/assets/e113155bc6db71b8760bc5e7d0e46953.png
-/WebQuiz/wwwroot/assets/07739c1535b3771546bac18ce66dd07e.png
+/WebQuiz/wwwroot/assets
