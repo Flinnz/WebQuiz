@@ -28,7 +28,7 @@
     flex-grow: 0.5;
     width: 70%;
     flex-basis: 20%;
-    border: 1px solid orange;
+    border: 2px solid orange;
     background-color: lightskyblue;
 }
 .button{

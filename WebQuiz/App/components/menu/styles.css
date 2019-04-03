@@ -1,0 +1,112 @@
+#menu{
+    background-color: rgba(211, 30, 181, 0.5);
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.arizona{
+    position: absolute;
+    width: 10%;
+}
+
+#header{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 20%;
+    text-align: center;
+}
+
+#ari1{
+    animation: arizona-anime 3s infinite alternate;
+    top: 50px;
+    left: 100px;
+}
+
+#ari2{
+    animation: arizona-anime-back 3s infinite alternate;
+    top: 50px;
+    right: 100px;
+}
+
+#statue1{
+    bottom: 123px;
+    right: 100px;
+    transform: scaleX(-1);
+}
+
+#statue2{
+    bottom: 123px;
+    left: 100px;
+}
+
+@keyframes arizona-anime {
+    from {
+        transform: rotate(-35deg);     
+    }
+    to {
+        transform: rotate(35deg);
+    }
+}
+
+@keyframes arizona-anime-back {
+    from {
+        transform: rotate(35deg);     
+    }
+    to {
+        transform: rotate(-35deg);
+    }
+}
+
+
+#list{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu-button{
+    font-family: "Comic Sans MS", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.link{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    border-radius: 40px;
+    background: linear-gradient(180deg, rgba(0, 181, 204, 1), rgba(37, 116, 169, 1));
+}
+
+.link:hover{
+    animation: hover-anime 0.5s ease;
+    background: linear-gradient(127deg, rgba(37, 116, 169, 1), rgba(0, 181, 204, 1));
+    width: 31%;
+}
+
+@keyframes hover-anime {
+    from {
+        width: 30%;     
+    }
+    to {
+        width: 31%;
+    }
+}

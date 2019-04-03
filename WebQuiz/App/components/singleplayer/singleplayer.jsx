@@ -25,7 +25,7 @@ class SinglePlayer extends React.Component {
         return (
             <div id="app">
                 <Link to='/'>Menu</Link>
-                <Timer start={this.state.timer} isNewQuestion={this.state.isNewQuestion}/>
+                <Timer start={this.state.timer} isNewQuestion={this.state.isNewQuestion} onTimeout={this.getNewQuestion}/>
                 <div id="score">{this.state.score}</div>
                 <div id="question">{this.state.question}</div>
                 <div id="input">
@@ -37,22 +37,16 @@ class SinglePlayer extends React.Component {
     }
 
     getNewQuestion = () => {
-        fetch("/api/quiz/question").then(r => {
-            if (r.ok){
-                r.json().then(jr => {
-                    this.setState({
-                        question: jr["text"],
-                        id: jr["id"],
-                        isNewQuestion: false
-                    });
-                });
-                console.log('после ответа ' + this.state.isNewQuestion);                
-            } else {
+        fetch("/api/quiz/question")
+            .then(r => r.json())
+            .then(json => 
                 this.setState({
-                    question: "error"
-                });
-            }
-        });
+                    question: json["text"],
+                    id: json["id"],
+                    isNewQuestion: false
+                })
+            )
+            .catch(err => this.setState({question: err}));
     }
 
     handleInput = (evt) => {
@@ -66,9 +60,9 @@ class SinglePlayer extends React.Component {
             this.handleAnswer();
         }
     }
+    
 
-    handleAnswer = (evt) => {
-        
+    handleAnswer = (evt) => {       
         fetch("/api/quiz/answer", {
             method: 'POST',
             headers: {
@@ -80,27 +74,26 @@ class SinglePlayer extends React.Component {
                     id: this.state.id,
                     answer: this.state.answer
                 })
-        }).then(r => {
-            if(r.ok) {
-                r.json().then(jr => {
-                    this.setState({
-                        answer: "",
-                        timer: 30
-                    });
-                    if(jr) {
-                        alert("Правильно пидрила");
-                        this.setState({
-                            score: this.state.score + 1,
-                            isNewQuestion: true
-                        });
-                        console.log('после алерта ' + this.state.isNewQuestion);
-                        this.getNewQuestion();
-                    } else {
-                        alert("Неправильно");
-                    }
-                })               
+        })
+        .then(r => r.json())
+        .then(json => {
+            this.setState({
+                answer: "",
+                timer: 30
+            });
+            if(json) {
+                alert("Правильно пидрила");
+                console.log('после алерта ' + this.state.isNewQuestion);
+                this.getNewQuestion();
+                this.setState({
+                    score: this.state.score + 1,
+                    isNewQuestion: true
+                });
+            } else {
+                return Promise.reject("Неправильно");
             }
-        });
+        })
+        .catch(err => alert(err));               
     }
 };
 

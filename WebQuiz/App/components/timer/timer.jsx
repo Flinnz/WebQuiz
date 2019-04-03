@@ -7,6 +7,7 @@ class Timer extends Component {
             currentCount: this.props.start,
             isNewQuestion: this.props.isNewQuestion
         }
+        this.onTimeout = props.onTimeout;
       }
 
     timer() {
@@ -21,7 +22,10 @@ class Timer extends Component {
             });
         }
         if(this.state.currentCount < 1) { 
-          clearInterval(this.intervalId);
+            this.setState({
+                currentCount: this.props.start,
+            });
+            this.onTimeout();
         }
     }
 
