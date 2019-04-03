@@ -15,7 +15,8 @@ namespace WebQuiz.Domain
             var values = parser.GetValues("B2:C");
             foreach (var value in values)
             {
-                this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
+                if (value.Count > 1)
+                    this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
             }
 
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько будет 2*2?", "4"));
