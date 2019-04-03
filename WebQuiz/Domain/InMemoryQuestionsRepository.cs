@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using SpreadSheetParser.Parsers;
 
 namespace WebQuiz.Domain
 {
@@ -10,6 +11,13 @@ namespace WebQuiz.Domain
         public InMemoryQuestionsRepository()
         {
             questions = new Dictionary<Guid, QuestionEntity>();
+            var parser = new SheetParser("1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38");
+            var values = parser.GetValues("B2:C");
+            foreach (var value in values)
+            {
+                this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
+            }
+
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько будет 2*2?", "4"));
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько хромосом у человека?", "46"));
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько хромосом у тебя?", "47"));
@@ -17,12 +25,7 @@ namespace WebQuiz.Domain
         }
         public QuestionEntity FindById(Guid id)
         {
-            if(questions.ContainsKey(id))
-            {
-                return questions[id];
-            }
-
-            return null;
+            return questions.ContainsKey(id) ? questions[id] : null;
         }
 
         public QuestionEntity GetRandomQuestion()

@@ -17,7 +17,7 @@ namespace WebQuiz.Domain
 
         public bool AnswerQuestion(string answer)
         {
-            return answer.ToLower() == CorrectAnswer.ToLower();
+            return string.Equals(answer, CorrectAnswer, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }
