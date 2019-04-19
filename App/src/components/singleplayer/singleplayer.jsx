@@ -14,7 +14,7 @@ class SinglePlayer extends React.Component {
             score: 0,
             timer: 30,
             isNewQuestion: false
-        }
+        };
     }
 
     componentDidMount() {
@@ -82,7 +82,7 @@ class SinglePlayer extends React.Component {
                 timer: 30
             });
             if(json) {
-                alert("Правильно пидрила");
+                alert("Правильно");
                 console.log('после алерта ' + this.state.isNewQuestion);
                 this.getNewQuestion();
                 this.setState({
