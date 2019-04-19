@@ -38,10 +38,23 @@ module.exports = {
         port: 9000,
         https: true,
         proxy: {
-            '*': { 
-                target: 'https://localhost:5001/',
+            '/api': { 
+                target: 'https://localhost:5001',
                 secure: false,
-            },  
+            },
+            '/multiplayer': {
+                target: 'https://localhost:5001',
+                secure: false,
+            },
+            '/swagger': {
+                target: 'https://localhost:5001',
+                secure: false,
+            },
+            '/multiplayer': {
+                target: 'wss://localhost:5001',
+                ws: true,
+                secure: false,
+            },
         },
     },
 }
