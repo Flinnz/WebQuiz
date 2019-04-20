@@ -45,15 +45,11 @@ module.exports = {
             },
             '/multiplayer': {
                 target: 'https://localhost:5001',
+                ws: true,
                 secure: false,
             },
             '/swagger': {
                 target: 'https://localhost:5001',
-                secure: false,
-            },
-            '/multiplayer': {
-                target: 'wss://localhost:5001',
-                ws: true,
                 secure: false,
             },
         },
