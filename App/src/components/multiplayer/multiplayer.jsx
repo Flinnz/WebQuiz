@@ -25,9 +25,7 @@ class MultiPlayer extends React.Component {
 
     componentDidMount() {
         const connection = new SignalR.HubConnectionBuilder()
-            .withUrl('/multiplayer', {
-                skipNegotiation: true,
-                transport: SignalR.HttpTransportType.WebSockets})
+            .withUrl('/multiplayer')
             .configureLogging(SignalR.LogLevel.Information)
             .build();
         this.connection = connection;

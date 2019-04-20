@@ -5,14 +5,14 @@ const webpack = require('webpack');
 
 const bundleFolder = "./src/dist/";
 const srcFolder = "./src/"
-
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 module.exports = {
     entry: srcFolder + "index.jsx",
     devtool: "source-map",
     output: {
         path: path.resolve(__dirname, bundleFolder),
-        publicPath: 'dist/',
+        publicPath: ASSET_PATH,
         filename: "bundle.js",
     },
     module: {
@@ -37,6 +37,7 @@ module.exports = {
         compress: true,
         port: 9000,
         https: true,
+        historyApiFallback: true,
         proxy: {
             '/api': { 
                 target: 'https://localhost:5001',
