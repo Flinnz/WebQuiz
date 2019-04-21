@@ -1,6 +1,6 @@
 using System;
 
-namespace WebQuiz.Domain
+namespace Server.Domain
 {
     public class QuestionEntity
     {

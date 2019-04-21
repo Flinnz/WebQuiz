@@ -1,6 +1,6 @@
 using System;
 
-namespace WebQuiz.Models
+namespace Server.Models
 {
     public class QuestionToSendDto
     {

@@ -6,31 +6,44 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using WebQuiz.Domain;
+using Server.Domain;
 
-namespace WebQuiz.Hubs
+namespace Server.Hubs
 {
     public class QuizHub: Hub
     {
-        private readonly IQuestionsRepository repository;
+        private readonly IGameRepository gameRepository;
 
-        public QuizHub(IQuestionsRepository repository)
+        public QuizHub(IGameRepository gameRepository)
         {
-            this.repository = repository;
+            this.gameRepository = gameRepository;
         }
 
-        public Task SendQuestion()
+        public Task SendQuestion(Guid gameId)
         {
-            return Clients.All.SendCoreAsync("GetQuestion", new object[] {repository.GetRandomQuestion()});
+            var game = gameRepository.FindById(gameId);
+            if (game == null)
+                return Clients.Caller.SendCoreAsync("GetQuestion", null);
+            return Clients.Caller.SendCoreAsync("GetQuestion", new object[] { game.Questions[0] });
         }
 
-        public Task ReceiveAnswer(Guid guid, string answer)
+        public Task ReceiveAnswer(Guid gameId, Guid playerId, string answer)
         {
-            var question = repository.FindById(guid);
-            if (question == null || !question.AnswerQuestion(answer))
-                return Clients.Caller.SendCoreAsync("Answer", new object[] {false});
-            SendQuestion();
-            return Clients.Caller.SendCoreAsync("Answer", new object[] {true});
+            var game = gameRepository.FindById(gameId);
+            if (game == null)
+                return Clients.Caller.SendCoreAsync("GetQuestion", null);
+            var isQuestionAnswered = game.AnswerQuestion(answer);
+            if (isQuestionAnswered)
+                SendNewQuestion(gameId);
+            return Clients.Caller.SendCoreAsync("Answer", new object[] {isQuestionAnswered});
+        }
+
+        public Task SendNewQuestion(Guid gameId)
+        {
+            var game = gameRepository.FindById(gameId);
+            if (game == null)
+                return Clients.All.SendCoreAsync("GetQuestion", null);
+            return Clients.All.SendCoreAsync("GetQuestion", new object[] { game.Questions[0] });
         }
     }
 }

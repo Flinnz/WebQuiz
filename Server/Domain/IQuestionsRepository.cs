@@ -1,8 +1,6 @@
-
-
 using System;
 
-namespace WebQuiz.Domain
+namespace Server.Domain
 {
     public interface IQuestionsRepository
     {

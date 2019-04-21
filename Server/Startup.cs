@@ -9,10 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
-using WebQuiz.Domain;
-using WebQuiz.Hubs;
+using Server.Domain;
+using Server.Hubs;
 
-namespace WebQuiz
+namespace Server
 {
     public class Startup
     {
@@ -48,6 +48,7 @@ namespace WebQuiz
                 });
             });
             services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
+            services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
             services.AddSignalR();
             //Swagger
             services.AddSwaggerGen(c =>

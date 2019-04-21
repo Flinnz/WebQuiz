@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using SpreadSheetParser.Parsers;
 
-namespace WebQuiz.Domain
+namespace Server.Domain
 {
     public class InMemoryQuestionsRepository : IQuestionsRepository
     {
@@ -12,13 +12,13 @@ namespace WebQuiz.Domain
         {
             questions = new Dictionary<Guid, QuestionEntity>();
             //uncomment for google sheets parsing
-            //var parser = new SheetParser("1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38");
-            //var values = parser.GetValues("B2:C");
-            //foreach (var value in values)
-            //{
-            //    if (value.Count > 1)
-            //        this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
-            //}
+            var parser = new SheetParser("1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38");
+            var values = parser.GetValues("B2:C");
+            foreach (var value in values)
+            {
+                if (value.Count > 1)
+                    this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
+            }
 
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько будет 2*2?", "4"));
             this.Insert(new QuestionEntity(Guid.NewGuid(), "Сколько хромосом у человека?", "46"));
