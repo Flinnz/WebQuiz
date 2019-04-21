@@ -24,7 +24,7 @@ namespace Server.Hubs
             var game = gameRepository.FindById(gameId);
             if (game == null)
                 return Clients.Caller.SendCoreAsync("GetQuestion", null);
-            return Clients.Caller.SendCoreAsync("GetQuestion", new object[] { game.Questions[0] });
+            return Clients.Caller.SendCoreAsync("GetQuestion", new object[] { game.Questions[game.CurrentQuestion] });
         }
 
         public Task ReceiveAnswer(Guid gameId, Guid playerId, string answer)
@@ -43,7 +43,7 @@ namespace Server.Hubs
             var game = gameRepository.FindById(gameId);
             if (game == null)
                 return Clients.All.SendCoreAsync("GetQuestion", null);
-            return Clients.All.SendCoreAsync("GetQuestion", new object[] { game.Questions[0] });
+            return Clients.All.SendCoreAsync("GetQuestion", new object[] { game.Questions[game.CurrentQuestion] });
         }
     }
 }

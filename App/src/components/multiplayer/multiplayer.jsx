@@ -15,6 +15,8 @@ class MultiPlayer extends React.Component {
         
         this.state = {
             question: "",
+            gameId: "bad9358a-275f-4c9e-ad7a-1891d19f19d8",
+            playerId: "",
             id: "",
             answer: "",
             score: 0,
@@ -24,6 +26,12 @@ class MultiPlayer extends React.Component {
     }
 
     componentDidMount() {
+        fetch(`/api/quiz/game?id=${this.state.gameId}`, {
+            method: 'GET',
+        })
+        .then(c => c.json())
+        .then(c => this.setState({playerId: c.yourPlayerGuid}))
+        .catch(c => console.log(c));
         const connection = new SignalR.HubConnectionBuilder()
             .withUrl('/multiplayer')
             .configureLogging(SignalR.LogLevel.Information)
@@ -35,7 +43,6 @@ class MultiPlayer extends React.Component {
             .then(() => { 
                 console.log('connected');
                 this.getNewQuestion();
-                connection.invoke('GetConnectedUsers');
             });
         
         connection.on('GetQuestion', data => {
@@ -44,7 +51,6 @@ class MultiPlayer extends React.Component {
                 question: data.text,
             });
         });
-        connection.on('GetConnectedUsers', data => console.log(data));
         connection.on('Answer', data => {
             alert(data);
             if(data) {
@@ -71,7 +77,7 @@ class MultiPlayer extends React.Component {
     }
 
     getNewQuestion = () => {
-        this.connection.invoke('SendQuestion')
+        this.connection.invoke('SendQuestion', this.state.gameId)
             .catch(err => this.setState({question: err}));
     }
 
@@ -89,7 +95,7 @@ class MultiPlayer extends React.Component {
     
 
     handleAnswer = (evt) => {     
-        this.connection.invoke('ReceiveAnswer', this.state.id, this.state.answer)
+        this.connection.invoke('ReceiveAnswer', this.state.gameId, this.state.playerId, this.state.answer)
             .catch(err => alert(err));               
     }
 }
