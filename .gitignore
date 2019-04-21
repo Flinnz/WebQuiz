@@ -264,3 +264,4 @@ __pycache__/
 /WebQuiz/wwwroot/assets/bundle.js
 /WebQuiz/wwwroot/assets
 /App/src/dist
+/App/dist

@@ -3,9 +3,9 @@
 const path = require("path");
 const webpack = require('webpack');
 
-const bundleFolder = "./src/dist/";
+const bundleFolder = "./dist/";
 const srcFolder = "./src/"
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = 'dist/';
 
 module.exports = {
     entry: srcFolder + "index.jsx",

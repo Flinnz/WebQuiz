@@ -12,7 +12,7 @@ class SinglePlayer extends React.Component {
             id: "",
             answer: "",
             score: 0,
-            timer: 30,
+            timer: 2,
             isNewQuestion: false
         };
     }
@@ -79,7 +79,7 @@ class SinglePlayer extends React.Component {
         .then(json => {
             this.setState({
                 answer: "",
-                timer: 30
+                timer: 2
             });
             if(json) {
                 alert("Правильно");
