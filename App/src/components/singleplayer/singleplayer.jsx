@@ -12,7 +12,7 @@ class SinglePlayer extends React.Component {
             id: "",
             answer: "",
             score: 0,
-            timer: 2,
+            timer: 30,
             isNewQuestion: false
         };
     }

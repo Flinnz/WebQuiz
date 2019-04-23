@@ -102,11 +102,32 @@
     width: 31%;
 }
 
+#log {
+    font-family: "Comic Sans MS", sans-serif;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    width: 80px;
+}
+#log:hover {
+    animation: hover-log-anime 0.5s ease;
+    width: 90px;
+}
+
 @keyframes hover-anime {
     from {
         width: 30%;     
     }
     to {
         width: 31%;
+    }
+}
+
+@keyframes hover-log-anime {
+    from {
+        width: 80px;
+    }
+    to {
+        width: 90px;
     }
 }
