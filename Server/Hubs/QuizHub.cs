@@ -19,6 +19,11 @@ namespace Server.Hubs
             this.gameRepository = gameRepository;
         }
 
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+
         public Task SendQuestion(Guid gameId)
         {
             var game = gameRepository.FindById(gameId);

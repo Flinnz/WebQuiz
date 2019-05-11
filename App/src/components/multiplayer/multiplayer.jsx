@@ -12,11 +12,11 @@ class MultiPlayer extends React.Component {
 
     constructor(props) {
         super(props);
-        
+        const locationState = this.props.location.state || {id: "", playerId: "",};
         this.state = {
             question: "",
-            gameId: "bad9358a-275f-4c9e-ad7a-1891d19f19d8",
-            playerId: "",
+            gameId: locationState.id,
+            playerId: locationState.playerId,
             id: "",
             answer: "",
             score: 0,
@@ -26,25 +26,11 @@ class MultiPlayer extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`/api/quiz/game?id=${this.state.gameId}`, {
-            method: 'GET',
-        })
-        .then(c => c.json())
-        .then(c => this.setState({playerId: c.yourPlayerGuid}))
-        .catch(c => console.log(c));
         const connection = new SignalR.HubConnectionBuilder()
             .withUrl('/multiplayer')
             .configureLogging(SignalR.LogLevel.Information)
             .build();
         this.connection = connection;
-        connection.serverTimeoutInMilliseconds = 100000;
-        connection
-            .start()
-            .then(() => { 
-                console.log('connected');
-                this.getNewQuestion();
-            });
-        
         connection.on('GetQuestion', data => {
             this.setState({
                 id: data.id,
@@ -59,7 +45,23 @@ class MultiPlayer extends React.Component {
                 });
             }
         });
-        
+        connection.serverTimeoutInMilliseconds = 100000;
+        connection
+            .start()
+            .then(() => { 
+                console.log('connected');
+                if (this.state.playerId == "" && this.state.gameId == "") {
+                    fetch(`/api/quiz/game`, {
+                        method: 'POST',
+                        body: {},})
+                        .then(c => c.json())
+                        .then(c => this.setState({playerId: c.yourPlayerGuid, gameId: c.guid, }))
+                        .then(() => this.getNewQuestion())
+                        .catch(c => console.log(c));
+                } else {
+                    this.getNewQuestion();
+                }
+            });
     }
 
     render() {
@@ -67,6 +69,7 @@ class MultiPlayer extends React.Component {
             <div id="app">
                 <Link to='/'>Menu</Link>
                 <div id="score">{this.state.score}</div>
+                <div id="score">{this.state.gameId}</div>
                 <div id="question">{this.state.question}</div>
                 <div id="input">
                     <input className="input" value={this.state.answer} onChange={this.handleInput} onKeyPress={this.handleEnterAnswer}/>
@@ -77,8 +80,11 @@ class MultiPlayer extends React.Component {
     }
 
     getNewQuestion = () => {
-        this.connection.invoke('SendQuestion', this.state.gameId)
-            .catch(err => this.setState({question: err}));
+        if (this.state.gameId != "") {
+            this.connection
+                .invoke('SendQuestion', this.state.gameId)
+                .catch(err => this.setState({question: err}));
+        }
     }
 
     handleInput = (evt) => {
@@ -97,6 +103,10 @@ class MultiPlayer extends React.Component {
     handleAnswer = (evt) => {     
         this.connection.invoke('ReceiveAnswer', this.state.gameId, this.state.playerId, this.state.answer)
             .catch(err => alert(err));               
+    }
+
+    componentWillUnmount() {
+
     }
 }
 
