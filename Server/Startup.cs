@@ -49,6 +49,7 @@ namespace Server
             });
             services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
             services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
+            services.AddSingleton<IFeedbackRepository>(feedrep => new InMemoryFeedbackRepository());
             services.AddSignalR();
             //Swagger
             services.AddSwaggerGen(c =>

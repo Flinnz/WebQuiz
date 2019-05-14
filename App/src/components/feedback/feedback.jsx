@@ -17,15 +17,16 @@ class Feedback extends Component {
     };
 
     handleAnswer = (evt) => {
+        console.log(this.state.text);
         fetch("/api/quiz/feedback", {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(
                 {
-                    feedback: this.state.text
+                    text: this.state.text
                 })
         })
             .then(r => r.json())
