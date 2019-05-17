@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from './style.css';
 import { Link } from 'react-router-dom';
+import Join from '../join/join.jsx';
 import Timer from '../timer/timer.jsx';
 import * as SignalR from '@aspnet/signalr';
 
@@ -12,11 +13,9 @@ class MultiPlayer extends React.Component {
 
     constructor(props) {
         super(props);
-        const locationState = this.props.location.state || {id: "", playerId: "",};
         this.state = {
             question: "",
-            gameId: locationState.id,
-            playerId: locationState.playerId,
+            gameId: "",
             id: "",
             answer: "",
             score: 0,
@@ -37,6 +36,18 @@ class MultiPlayer extends React.Component {
                 question: data.text,
             });
         });
+        connection.on('CreateGame', data => {
+            this.setState({
+                gameId: data,
+            });
+        });
+        connection.on('JoinGame', data => {
+            if(data != null) {
+                this.setState({
+                    gameId: data,
+                });
+            }
+        });
         connection.on('Answer', data => {
             alert(data);
             if(data) {
@@ -45,27 +56,13 @@ class MultiPlayer extends React.Component {
                 });
             }
         });
-        connection.serverTimeoutInMilliseconds = 100000;
-        connection
-            .start()
-            .then(() => { 
-                console.log('connected');
-                if (this.state.playerId == "" && this.state.gameId == "") {
-                    fetch(`/api/quiz/game`, {
-                        method: 'POST',
-                        body: {},})
-                        .then(c => c.json())
-                        .then(c => this.setState({playerId: c.yourPlayerGuid, gameId: c.guid, }))
-                        .then(() => this.getNewQuestion())
-                        .catch(c => console.log(c));
-                } else {
-                    this.getNewQuestion();
-                }
-            });
+        connection.on('Tick', data => console.log(1));
+        connection.serverTimeoutInMilliseconds = 10000;
+        connection.start().then(() => setInterval(() => connection.invoke('Tick').catch(err => console.log(err)), 1000));
     }
 
     render() {
-        return (
+        return this.state.gameId == "" ? (<Join onJoin={this.handleJoin} onCreate={this.handleCreate}/>) : (
             <div id="app">
                 <Link to='/'>Menu</Link>
                 <div id="score">{this.state.score}</div>
@@ -87,6 +84,18 @@ class MultiPlayer extends React.Component {
         }
     }
 
+    handleJoin = (id) => {
+        this.connection
+            .invoke('JoinGame', id)
+            .catch(err => console.log(err));
+    }
+
+    handleCreate = () => {
+        this.connection
+            .invoke('CreateGame')
+            .catch(err => console.log(err));
+    }
+
     handleInput = (evt) => {
         this.setState({
             answer: evt.target.value
@@ -101,12 +110,15 @@ class MultiPlayer extends React.Component {
     
 
     handleAnswer = (evt) => {     
-        this.connection.invoke('ReceiveAnswer', this.state.gameId, this.state.playerId, this.state.answer)
+        this.connection.invoke('ReceiveAnswer', this.state.gameId, this.state.answer)
             .catch(err => alert(err));               
     }
 
     componentWillUnmount() {
-
+        this.connection
+            .invoke('LeaveGame', this.state.gameId)
+            .then(() => this.connection.stop())
+            .catch(err => console.log(err));
     }
 }
 

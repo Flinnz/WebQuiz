@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,7 @@ namespace Server
             });
             services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
             services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
+            services.AddSingleton<Dictionary<string, PlayerEntity>>(p => new Dictionary<string, PlayerEntity>());
             services.AddSignalR();
             //Swagger
             services.AddSwaggerGen(c =>

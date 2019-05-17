@@ -8,29 +8,34 @@ namespace Server.Domain
     public class GameEntity
     {
         public Guid Id { get; }
-        private int currentPlayerCount;
+        public int MaxPlayerCount { get; }
         public bool IsFinished => Questions.Length == CurrentQuestion;
-        public PlayerEntity[] Players { get; }
+        public List<PlayerEntity> Players { get; }
         public PlayerEntity HostPlayer { get; }
         public QuestionEntity[] Questions { get; }
         public int CurrentQuestion { get; private set; }
-        public GameEntity(int playerCount, PlayerEntity hostPlayer, QuestionEntity[] questions)
+        public GameEntity(int maxPlayerCount, PlayerEntity hostPlayer, QuestionEntity[] questions)
         {
-            currentPlayerCount = 1;
+            MaxPlayerCount = maxPlayerCount;
             this.CurrentQuestion = 0;
             this.Id = Guid.NewGuid();
-            this.Players = new PlayerEntity[playerCount];
+            this.Players = new List<PlayerEntity> {hostPlayer};
             this.HostPlayer = hostPlayer;
             this.Questions = questions;
         }
 
-        public PlayerEntity Join()
+        public bool Join(PlayerEntity playerEntity)
         {
-            if (Players.Length == currentPlayerCount) return null;
-            var newPlayer = new PlayerEntity();
-            Players[currentPlayerCount] = newPlayer;
-            currentPlayerCount++;
-            return newPlayer;
+            if (Players.Count >= MaxPlayerCount) return false;
+            playerEntity.GameId = this.Id;
+            Players.Add(playerEntity);
+            return true;
+        }
+
+        public void Leave(PlayerEntity playerEntity)
+        {
+            playerEntity.GameId = Guid.Empty;
+            Players.RemoveAll(p => p.Id == playerEntity.Id);
         }
         
         public bool AnswerQuestion(string answer)
