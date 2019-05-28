@@ -89,12 +89,19 @@
 .link:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
 .link:hover {background: rgba(255,255,255,.2);}
 
-
-#log {
-    font-family: 'Montserrat', sans-serif;
+.logArea {
     position: fixed;
     top: 5px;
     right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+#log {
+    font-family: 'Montserrat', sans-serif;
     width: 80px;
 }
 
+svg {
+    color: rgb(255,255,255);
+}

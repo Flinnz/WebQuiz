@@ -25,6 +25,10 @@ class MultiPlayer extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.location.search) {
+            this.setState({ gameId: this.props.location.search.split('=')[1]})
+        }
+        
         const connection = new SignalR.HubConnectionBuilder()
             .withUrl('/multiplayer')
             .configureLogging(SignalR.LogLevel.Information)

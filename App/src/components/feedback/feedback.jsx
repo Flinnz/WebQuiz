@@ -48,7 +48,7 @@ class Feedback extends Component {
                 <Link className="linkback" to='/'>Menu</Link>
                 <div className="inputarea">
                     <div className="text">
-                        <p>Здесь вы можете оставить свои пожелания или отзыв к нашему проекту. Также можете предложить свои вопросы по <a href="https://forms.gle/dGxzLWBwLSPz1ZceA">ссылке</a>.</p>
+                        <p>Здесь вы можете оставить свои пожелания или отзыв к нашему проекту. Также можете предложить свои вопросы по <a href="https://forms.gle/dGxzLWBwLSPz1ZceA" target="_blank">ссылке</a>.</p>
                     </div>
                     <div id="textinput">
                         <textarea

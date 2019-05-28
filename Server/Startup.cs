@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -45,12 +44,12 @@ namespace Server
                         .AllowAnyMethod()
                         .AllowCredentials()
                         .WithOrigins("https://localhost:5001", "https://localhost:9000");
-                        
+
                 });
             });
             services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
             services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
-            services.AddSingleton<Dictionary<string, PlayerEntity>>(p => new Dictionary<string, PlayerEntity>());
+            services.AddSingleton<IFeedbackRepository>(feedrep => new InMemoryFeedbackRepository());
             services.AddSignalR();
             //Swagger
             services.AddSwaggerGen(c =>
@@ -80,19 +79,19 @@ namespace Server
                 app.UseHsts();
             }
             app.UseCors(CorsPolicy);
-            app.UseSignalR(routes => 
+            app.UseSignalR(routes =>
             {
                 routes.MapHub<QuizHub>("/multiplayer");
             });
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseSwagger();
-            app.UseSwaggerUI(c => 
-            { 
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebQuiz v1"); 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebQuiz v1");
                 c.RoutePrefix = "";
             });
-            app.UseMvc();            
+            app.UseMvc();
         }
     }
 }

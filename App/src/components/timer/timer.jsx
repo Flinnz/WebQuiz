@@ -37,9 +37,13 @@ class Timer extends Component {
         clearInterval(this.intervalId);
     }
 
+    divStyle = {
+        color: "#fff"
+    }
+
     render() {
         return(
-            <div>{this.state.currentCount}</div>
+            <div style={this.divStyle}>{this.state.currentCount}</div>
         )
     }
 }

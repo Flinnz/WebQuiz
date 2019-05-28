@@ -91,3 +91,51 @@
 .button:hover:before, .link:hover:before, .input:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
 .button:hover:after, .link:hover:after, .input:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
 .button:hover, .link:hover, .input:hover{background: rgba(255,255,255,.2);}
+
+.fon {
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.true {
+    color: #CDA30B;
+    animation: changeTrue 2s ease-in-out 0ms 1 forwards;
+    z-index: 2;
+}
+
+.false {
+    color: #96C30B;
+    animation: changeFalse 2s ease-in-out 0ms 1 forwards;
+    z-index: 2;
+}
+
+@keyframes changeFalse{  
+    0% {
+      opacity: 1;
+      font-size: 9em;
+      transform: rotate(-30deg);      
+    }
+    100% {
+      opacity: 0;
+      font-size: 3em; 
+      transform: rotate(15deg); 
+    }
+  }
+
+  @keyframes changeTrue{  
+    0% {
+      opacity: 1;
+      font-size: 9em; 
+      transform: rotate(15deg);       
+    }
+    100% {
+      opacity: 0;
+      font-size: 3em; 
+      transform: rotate(-30deg); 
+    }
+  }

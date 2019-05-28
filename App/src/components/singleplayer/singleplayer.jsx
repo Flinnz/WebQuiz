@@ -13,7 +13,8 @@ class SinglePlayer extends React.Component {
             answer: "",
             score: 0,
             timer: 30,
-            isNewQuestion: false
+            isNewQuestion: false,
+            isCorrect: null
         };
     }
 
@@ -31,7 +32,11 @@ class SinglePlayer extends React.Component {
                 <div id="input">
                     <input className="input" value={this.state.answer} onChange={this.handleInput} onKeyPress={this.handleEnterAnswer}/>
                 </div>
-                <div className="button" onClick={this.handleAnswer}>Отправить</div>
+                <div className="button" onClick={this.handleAnswer}>Send</div>
+                <div className="fon" >
+                    { this.state.isCorrect == true ? <div className="true">Верно!</div> : null }
+                    { this.state.isCorrect == false ? <div className="false">Ошибка...</div> : null }
+                </div>
             </div>
         );
     }
@@ -63,6 +68,7 @@ class SinglePlayer extends React.Component {
     
 
     handleAnswer = (evt) => {       
+        this.setState({ isCorrect: null })
         fetch("/api/quiz/answer", {
             method: 'POST',
             headers: {
@@ -79,21 +85,26 @@ class SinglePlayer extends React.Component {
         .then(json => {
             this.setState({
                 answer: "",
-                timer: 2
+                timer: 30
             });
             if(json) {
-                alert("Ответ верный");
                 console.log('после алерта ' + this.state.isNewQuestion);
                 this.getNewQuestion();
                 this.setState({
                     score: this.state.score + 1,
-                    isNewQuestion: true
+                    isNewQuestion: true,
+                    isCorrect: true
                 });
             } else {
+                this.setState({
+                    isCorrect: false
+                });
                 return Promise.reject("Ответ неверный");
             }
         })
-        .catch(err => alert(err));
+        .catch(err => {
+            this.setState({ isCorrect: false })
+        });
     }
 };
 

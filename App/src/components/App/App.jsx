@@ -8,6 +8,9 @@ import MultiPlayer from '../multiplayer/multiplayer.jsx';
 import Statistics from '../statistics/statistics.jsx';
 import Feedback from '../feedback/feedback.jsx';
 import Join from '../join/join.jsx';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+library.add(faUser);
 
 class App extends React.Component {
     render() {
