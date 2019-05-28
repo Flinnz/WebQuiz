@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.css';
 import Join from '../join/join.jsx';
-import img from './UxIpJ6h5iu8.jpg';
+import img from './1.png';
 
 export default function Menu() {
     return (

@@ -4,46 +4,90 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-#input{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid gray;
-    padding: 5px 5px 5px 5px;
-    border-radius: 30px;
-}
-#input:hover{
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background: #51118a;
 }
 .input{
-    border-width: 0px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid rgba(255,255,255,.4);
+    background: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
 }
-#question{   
-    font-family: "Comic Sans MS", sans-serif;
+
+#score, #question, .time{
+    color: white;
+}
+#question{
+    font-family: 'Montserrat', sans-serif;
     padding-left: 10px;
     padding-right: 10px;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    flex-grow: 0.5;
-    width: 70%;
-    flex-basis: 20%;
-    border: 2px solid orange;
-    background-color: lightskyblue;
-}
-.button{
     display: flex;
     align-items: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border: 1px solid lawngreen;
-    border-radius: 30px;
-    background: rgba(136, 212, 231, 0.5);
+    justify-content: center;
+    flex-grow: 0.5;
+    width: 60%;
+    flex-basis: 20%;
+    border: 1px solid rgba(255,255,255,.4);
+    background: none;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
-.button:hover{
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    background: rgba(78, 128, 141, 0.8);
-    cursor: crosshair;
+
+.button, .link {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    outline: none;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    position: relative;
+    color: white;
+    border: 1px solid rgba(255,255,255,.4);
+    background: none;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
+.button:before,
+.button:after,
+.link:before,
+.link:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    box-sizing: border-box;
+}
+.button:before,
+.link:before {
+    bottom: 0;
+    left: 0;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+.button:after,
+.link:after {
+    top: 0;
+    right: 0;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    transition: 0s ease opacity .4s, .2s ease width , .2s ease height .2s;
+}
+.button:hover:before,
+.button:hover:after,
+.link:hover:before,
+.link:hover:after{
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+}
+.button:hover:before, .link:hover:before, .input:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
+.button:hover:after, .link:hover:after, .input:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
+.button:hover, .link:hover, .input:hover{background: rgba(255,255,255,.2);}

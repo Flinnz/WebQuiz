@@ -64,14 +64,14 @@ class MultiPlayer extends React.Component {
     render() {
         return this.state.gameId == "" ? (<Join onJoin={this.handleJoin} onCreate={this.handleCreate}/>) : (
             <div id="app">
-                <Link to='/'>Menu</Link>
+                <Link className="link"to='/'>Menu</Link>
                 <div id="score">{this.state.score}</div>
-                <div id="score">{this.state.gameId}</div>
+                <div id="gameId">{this.state.gameId}</div>
                 <div id="question">{this.state.question}</div>
                 <div id="input">
                     <input className="input" value={this.state.answer} onChange={this.handleInput} onKeyPress={this.handleEnterAnswer}/>
                 </div>
-                <div className="button" onClick={this.handleAnswer}>Кликай суда</div>
+                <div className="button" onClick={this.handleAnswer}>Send</div>
             </div>
         );
     }

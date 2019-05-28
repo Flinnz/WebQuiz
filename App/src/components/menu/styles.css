@@ -1,5 +1,5 @@
 #menu{
-    background-color: rgba(211, 30, 181, 0.5);
+    background-color: #51118a;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -12,10 +12,7 @@
     align-content: center;
 }
 
-.arizona{
-    position: absolute;
-    width: 10%;
-}
+
 
 #header{
     display: flex;
@@ -24,110 +21,80 @@
     width: 20%;
     text-align: center;
 }
-
-#ari1{
-    animation: arizona-anime 3s infinite alternate;
-    top: 50px;
-    left: 100px;
-}
-
-#ari2{
-    animation: arizona-anime-back 3s infinite alternate;
-    top: 50px;
-    right: 100px;
-}
-
-#statue1{
-    bottom: 123px;
-    right: 100px;
-    transform: scaleX(-1);
-}
-
-#statue2{
-    bottom: 123px;
-    left: 100px;
-}
-
-@keyframes arizona-anime {
-    from {
-        transform: rotate(-35deg);     
-    }
-    to {
-        transform: rotate(35deg);
-    }
-}
-
-@keyframes arizona-anime-back {
-    from {
-        transform: rotate(35deg);     
-    }
-    to {
-        transform: rotate(-35deg);
-    }
-}
-
-
 #list{
     width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0;
 }
 
 .menu-button{
-    font-family: "Comic Sans MS", sans-serif;
+    font-family: sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     list-style-type: none;
 }
 
-.link{
-    width: 30%;
+
+.link {
+    width: 200px;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-decoration: none;
-    color: rgb(0, 0, 0);
-    padding-top: 1%;
-    padding-bottom: 1%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    border-radius: 40px;
-    background: linear-gradient(180deg, rgba(0, 181, 204, 1), rgba(37, 116, 169, 1));
+    outline: none;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    position: relative;
+    color: white;
+    border: 1px solid rgba(255,255,255,.4);
+    background: none;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
+.link:before,
+.link:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    box-sizing: border-box;
+}
+.link:before {
+    bottom: 0;
+    left: 0;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
+}
+.link:after {
+    top: 0;
+    right: 0;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    transition: 0s ease opacity .4s, .2s ease width , .2s ease height .2s;
+}
+.link:hover:before,
+.link:hover:after{
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+}
+.link:hover:before {transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;}
+.link:hover:after {transition: 0s ease opacity .4s, .2s ease height .4s , .2s ease width .6s;}
+.link:hover {background: rgba(255,255,255,.2);}
 
-.link:hover{
-    animation: hover-anime 0.5s ease;
-    background: linear-gradient(127deg, rgba(37, 116, 169, 1), rgba(0, 181, 204, 1));
-    width: 31%;
-}
 
 #log {
-    font-family: "Comic Sans MS", sans-serif;
+    font-family: 'Montserrat', sans-serif;
     position: fixed;
     top: 5px;
     right: 5px;
     width: 80px;
 }
-#log:hover {
-    animation: hover-log-anime 0.5s ease;
-    width: 90px;
-}
 
-@keyframes hover-anime {
-    from {
-        width: 30%;     
-    }
-    to {
-        width: 31%;
-    }
-}
-
-@keyframes hover-log-anime {
-    from {
-        width: 80px;
-    }
-    to {
-        width: 90px;
-    }
-}

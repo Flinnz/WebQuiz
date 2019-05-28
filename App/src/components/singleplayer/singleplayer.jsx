@@ -24,14 +24,14 @@ class SinglePlayer extends React.Component {
     render() {
         return (
             <div id="app">
-                <Link to='/'>Menu</Link>
-                <Timer start={this.state.timer} isNewQuestion={this.state.isNewQuestion} onTimeout={this.getNewQuestion}/>
+                <Link className="link" to='/'>Menu</Link>
+                <Timer className="time" start={this.state.timer} isNewQuestion={this.state.isNewQuestion} onTimeout={this.getNewQuestion}/>
                 <div id="score">{this.state.score}</div>
                 <div id="question">{this.state.question}</div>
                 <div id="input">
                     <input className="input" value={this.state.answer} onChange={this.handleInput} onKeyPress={this.handleEnterAnswer}/>
                 </div>
-                <div className="button" onClick={this.handleAnswer}>Кликай суда</div>
+                <div className="button" onClick={this.handleAnswer}>Отправить</div>
             </div>
         );
     }
@@ -82,7 +82,7 @@ class SinglePlayer extends React.Component {
                 timer: 2
             });
             if(json) {
-                alert("Правильно");
+                alert("Ответ верный");
                 console.log('после алерта ' + this.state.isNewQuestion);
                 this.getNewQuestion();
                 this.setState({
@@ -90,10 +90,10 @@ class SinglePlayer extends React.Component {
                     isNewQuestion: true
                 });
             } else {
-                return Promise.reject("Неправильно");
+                return Promise.reject("Ответ неверный");
             }
         })
-        .catch(err => alert(err));               
+        .catch(err => alert(err));
     }
 };
 

@@ -8,7 +8,9 @@ export default function Join(props) {
     return (
             <div id="joinwindow">
                 <div id="joinwindowform">
-                    <div id="back" onClick={() => closeModal()}></div><br/>
+                    <div className="backLink">
+                        <Link className="back" to='/'></Link>
+                    </div><br/>
                     <label>Введите ID созданной игры, чтобы присоединиться к ней:
                         <input value={id} onChange={(evt) => setId(evt.target.value)}/>
                     </label>
