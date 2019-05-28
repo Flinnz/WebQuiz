@@ -1,4 +1,5 @@
 using System;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Server.Domain
@@ -11,11 +12,15 @@ namespace Server.Domain
         public string Text { get; }
         [BsonElement]
         public string CorrectAnswer { get; }
+        [BsonElement]
+        [BsonRepresentation(BsonType.Document)]
+        public DateTime CreationDate { get; }
 
         [BsonConstructor]
-        public QuestionEntity(Guid id, string text, string correctAnswer)
+        public QuestionEntity(Guid id, DateTime creationDate, string text, string correctAnswer)
         {
             this.Id = id;
+            this.CreationDate = creationDate;
             this.Text = text;
             this.CorrectAnswer = correctAnswer;
         }
