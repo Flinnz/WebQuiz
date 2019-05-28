@@ -12,11 +12,13 @@ namespace Server.Controllers
     {
         private readonly IQuestionsRepository questionsRepository;
         private readonly IGameRepository gameRepository;
+        private readonly IFeedbackRepository feedbackRepository;
 
-        public QuizController(IQuestionsRepository questionsRepository, IGameRepository gameRepository)
+        public QuizController(IQuestionsRepository questionsRepository, IGameRepository gameRepository, IFeedbackRepository feedbackRepository)
         {
             this.questionsRepository = questionsRepository;
             this.gameRepository = gameRepository;
+            this.feedbackRepository = feedbackRepository;
         }
 
         /// <summary>
@@ -41,5 +43,16 @@ namespace Server.Controllers
             var question = questionsRepository.FindById(answerDto.Id);
             return Ok(question.AnswerQuestion(answerDto.Answer));
         }
+
+        /// <summary>
+        /// Recieve feedback.
+        /// </summary>
+        [HttpPost("feedback")]
+        public IActionResult SendFeedback([FromBody] RecivedFeedbackDto note)
+        {
+            var feedback = feedbackRepository.Insert(note.Text);
+            return Ok(feedback);
+        }
+
     }
 }
