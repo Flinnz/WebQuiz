@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Server.Domain;
 using Server.Hubs;
+using MongoDB.Driver;
 
 namespace Server
 {
@@ -48,7 +49,10 @@ namespace Server
                         
                 });
             });
-            services.AddSingleton<IQuestionsRepository>(qr => new InMemoryQuestionsRepository());
+            var client = new MongoClient("mongodb://localhost:27017");
+            var database = client.GetDatabase("WebQuizDB");
+            
+            services.AddSingleton<IQuestionsRepository>(qr => new MongoQuestionsRepository(database));
             services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
             services.AddSingleton<Dictionary<string, PlayerEntity>>(p => new Dictionary<string, PlayerEntity>());
             services.AddSignalR();

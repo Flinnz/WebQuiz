@@ -1,6 +1,7 @@
 using System;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using SpreadSheetParser.Parsers;
 
 namespace Server.Domain
 {
@@ -15,6 +16,19 @@ namespace Server.Domain
          questionCollection.Indexes.CreateOne(new CreateIndexModel<QuestionEntity>(
                 Builders<QuestionEntity>.IndexKeys.Ascending(u => u.Id),
                 new CreateIndexOptions { Unique = true }));
+         //USE ONCE
+         ParseQuestions();
+      }
+
+      private void ParseQuestions()
+      {
+         var parser = new SheetParser("1FgbLOKoa1FuXnyiDLsweLoAtU60u3i0MlnMLJRCnE38");
+         var values = parser.GetValues("B2:C");
+         foreach (var value in values)
+         {
+               if (value.Count > 1)
+                  this.Insert(new QuestionEntity(Guid.NewGuid(), value[0].ToString(), value[1].ToString()));
+         }
       }
 
       public QuestionEntity FindById(Guid id)
