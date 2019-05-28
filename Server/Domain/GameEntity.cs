@@ -10,6 +10,8 @@ namespace Server.Domain
         public Guid Id { get; }
         public int MaxPlayerCount { get; }
         public bool IsFinished => Questions.Length == CurrentQuestion;
+        public bool IsStarted => true;
+        public bool IsFull => Players.Count == MaxPlayerCount;
         public List<PlayerEntity> Players { get; }
         public PlayerEntity HostPlayer { get; }
         public QuestionEntity[] Questions { get; }

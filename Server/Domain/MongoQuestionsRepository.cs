@@ -13,11 +13,8 @@ namespace Server.Domain
       public MongoQuestionsRepository(IMongoDatabase database)
       {
          questionCollection = database.GetCollection<QuestionEntity>(CollectionName);
-         questionCollection.Indexes.CreateOne(new CreateIndexModel<QuestionEntity>(
-                Builders<QuestionEntity>.IndexKeys.Ascending(u => u.Id),
-                new CreateIndexOptions { Unique = true }));
          //USE ONCE
-         ParseQuestions();
+         //ParseQuestions();
       }
 
       private void ParseQuestions()

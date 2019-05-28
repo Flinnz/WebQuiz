@@ -53,7 +53,7 @@ namespace Server
             var database = client.GetDatabase("WebQuizDB");
             
             services.AddSingleton<IQuestionsRepository>(qr => new MongoQuestionsRepository(database));
-            services.AddSingleton<IGameRepository>(gamerep => new InMemoryGameRepository());
+            services.AddSingleton<IGameRepository>(gamerep => new MongoGameRepository(database));
             services.AddSingleton<Dictionary<string, PlayerEntity>>(p => new Dictionary<string, PlayerEntity>());
             services.AddSignalR();
             //Swagger

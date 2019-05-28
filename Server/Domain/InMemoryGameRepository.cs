@@ -20,9 +20,9 @@ namespace Server.Domain
             gameEntities[gameEntity.Id] = gameEntity;
         }
 
-        public void Update(Guid id, GameEntity gameEntity)
+        public void Update(GameEntity gameEntity)
         {
-            gameEntities[id] = gameEntity;
+            gameEntities[gameEntity.Id] = gameEntity;
         }
 
         public void Upsert(Guid id, GameEntity gameEntity)

@@ -10,7 +10,7 @@ namespace Server.Domain
     {
         GameEntity FindById(Guid id);
         void Insert(GameEntity gameEntity);
-        void Update(Guid id, GameEntity gameEntity);
+        void Update(GameEntity gameEntity);
         void Upsert(Guid id, GameEntity gameEntity);
     }
 }
