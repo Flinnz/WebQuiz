@@ -35,5 +35,10 @@ namespace Server.Domain
         {
             throw new NotImplementedException();
         }
+
+        public GameEntity FindNotFullGame()
+        {
+            return gameCollection.Find(g => !g.IsFull).FirstOrDefault();
+        }
     }
 }

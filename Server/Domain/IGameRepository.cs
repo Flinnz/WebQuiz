@@ -12,5 +12,6 @@ namespace Server.Domain
         void Insert(GameEntity gameEntity);
         void Update(GameEntity gameEntity);
         void Upsert(Guid id, GameEntity gameEntity);
+        GameEntity FindNotFullGame();
     }
 }

@@ -6,6 +6,9 @@
     align-items: center;
     background: #51118a;
 }
+#gameid{
+    color: white;
+}
 .input{
     margin-top: 10px;
     margin-bottom: 20px;

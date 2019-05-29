@@ -13,7 +13,7 @@ namespace Server.Domain
         [BsonElement]
         public string CorrectAnswer { get; }
         [BsonElement]
-        [BsonRepresentation(BsonType.Document)]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local, DateOnly = false)]
         public DateTime CreationDate { get; }
 
         [BsonConstructor]

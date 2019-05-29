@@ -29,5 +29,10 @@ namespace Server.Domain
         {
             throw new NotImplementedException();
         }
+
+        public GameEntity FindNotFullGame()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -53,6 +53,16 @@ namespace Server.Hubs
             return Clients.Caller.SendCoreAsync("CreateGame", new object[] {game.Id}).ContinueWith((t) => SendQuestion(game.Id));
         }
 
+        public Task FindGame()
+        {
+            var game = gameRepository.FindNotFullGame();
+            if (game == null) return Clients.Caller.SendCoreAsync("FindGame", new object[0]);
+            var connectionGuid = this.Context.ConnectionId;
+            var player = playerManager[connectionGuid];
+            if (!game.Join(player)) return Clients.Caller.SendCoreAsync("FindGame", new object[0]);
+            return Clients.Caller.SendCoreAsync("FindGame", new object[] { game.Id }).ContinueWith(t => SendQuestion(game.Id));
+        }
+
         public Task JoinGame(Guid gameId)
         {
             var game = gameRepository.FindById(gameId);

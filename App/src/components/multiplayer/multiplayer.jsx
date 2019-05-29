@@ -23,7 +23,7 @@ class MultiPlayer extends React.Component {
             isNewQuestion: false
         }
     }
-
+    
     componentDidMount() {
         const connection = new SignalR.HubConnectionBuilder()
             .withUrl('/multiplayer')
@@ -48,6 +48,14 @@ class MultiPlayer extends React.Component {
                 });
             }
         });
+        connection.on('FindGame', data => {
+            console.log(data);
+            if (data != null) {
+                this.setState({
+                    gameId: data,
+                });
+            }
+        })
         connection.on('Answer', data => {
             alert(data);
             if(data) {
@@ -62,11 +70,11 @@ class MultiPlayer extends React.Component {
     }
 
     render() {
-        return this.state.gameId == "" ? (<Join onJoin={this.handleJoin} onCreate={this.handleCreate}/>) : (
+        return this.state.gameId == "" ? (<Join onJoin={this.handleJoin} onCreate={this.handleCreate} onRandom={this.handleRandom}/>) : (
             <div id="app">
                 <Link className="link"to='/'>Menu</Link>
                 <div id="score">{this.state.score}</div>
-                <div id="gameId">{this.state.gameId}</div>
+                <div id="gameid">{this.state.gameId}</div>
                 <div id="question">{this.state.question}</div>
                 <div id="input">
                     <input className="input" value={this.state.answer} onChange={this.handleInput} onKeyPress={this.handleEnterAnswer}/>
@@ -93,6 +101,12 @@ class MultiPlayer extends React.Component {
     handleCreate = () => {
         this.connection
             .invoke('CreateGame')
+            .catch(err => console.log(err));
+    }
+
+    handleRandom = () => {
+        this.connection
+            .invoke('FindGame')
             .catch(err => console.log(err));
     }
 
